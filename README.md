@@ -11,6 +11,8 @@ python rag_markdown_reader.py
 
 **Output:**
 ```markdown
+RAG Static Sample
+
 # Quickstart Guide
 To initialize the RAG client, set `chunk_size=512`.
 ```
@@ -27,8 +29,10 @@ Command:
 ```bash
 python rag_markdown_reader.py --url "https://tiansen2024-spec.github.io/rag-webpage-to-markdown/sample_dynamic_doc.html" --mode free
 ```
-**Actual Output A (189 chars — Missing All JS-Injected Specs & Tables):**
+**Actual Output A (393 chars, 0.69s — Missing All JS-Injected Specs & Tables):**
 ```markdown
+CloudRAG API Reference (Client-Side Rendered Demo)
+
 # Retrieval API v2 — Endpoint Specifications
 
 This page demonstrates a typical Single-Page Application (SPA) documentation page where core technical tables are injected dynamically via client-side JavaScript.
@@ -43,8 +47,10 @@ Command (requires `ZENROWS_API_KEY` with headless JS rendering enabled):
 export ZENROWS_API_KEY="your_key"
 python rag_markdown_reader.py --url "https://tiansen2024-spec.github.io/rag-webpage-to-markdown/sample_dynamic_doc.html" --mode zenrows
 ```
-**Actual Output B (612 chars — Full API Headers, Rate Limit Table & Retry Policy Recovered):**
+**Actual Output B (719 chars, 2.86s — Full API Headers, Rate Limit Table & Retry Policy Recovered):**
 ```markdown
+CloudRAG API Reference (Client-Side Rendered Demo)
+
 # Retrieval API v2 — Endpoint Specifications
 
 This page demonstrates a typical Single-Page Application (SPA) documentation page where core technical tables are injected dynamically via client-side JavaScript.
@@ -66,7 +72,7 @@ When receiving HTTP 429, clients must implement exponential backoff starting at 
 
 | Mode | Test Condition | Output Completeness | Cost & Billing Basis |
 | :--- | :--- | :--- | :--- |
-| `--mode free` (Default) | Python 3.11, direct `httpx` GET (15s timeout), no JS execution | **Incomplete on SPA docs** (misses dynamically rendered DOM nodes) | **$0 (Free)** |
+| `--mode free` (Default) | Google Colab (Python 3), direct `httpx` GET (15s timeout), no JS execution | **Incomplete on SPA docs** (misses dynamically rendered DOM nodes) | **$0 (Free)** |
 | `--mode zenrows` (Explicit Opt-in) | Headless browser `js_render=true` + `wait=500ms` via ZenRows API | **Complete** (executes JS and recovers full tables/specs) | **Paid / Trial Quota** (billed per API request with JS rendering weight per official pricing page) |
 
 ---

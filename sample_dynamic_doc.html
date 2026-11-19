@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CloudRAG API Reference (Client-Side Rendered Demo)</title>
+</head>
+<body>
+  <nav>Developer Portal | Docs | Status</nav>
+  <main>
+    <h1>Retrieval API v2 — Endpoint Specifications</h1>
+    <p>This page demonstrates a typical Single-Page Application (SPA) documentation page where core technical tables are injected dynamically via client-side JavaScript.</p>
+    
+    <!-- 静态 HTML 初始状态只有占位提示 -->
+    <div id="dynamic-spec-container">
+      <p><em>[Loading dynamic API specifications via JavaScript... Static HTTP clients without JS rendering will only see this placeholder.]</em></p>
+    </div>
+  </main>
+
+  <script>
+    // 真正的客户端 JavaScript 渲染逻辑：页面加载 300 毫秒后动态写入完整正文与参数表格
+    setTimeout(function() {
+      const container = document.getElementById('dynamic-spec-container');
+      container.innerHTML = `
+        <h2>1. Authentication Header</h2>
+        <p>All retrieval requests must include the <code>X-RAG-Token</code> header using a workspace bearer key.</p>
+        <h2>2. Production Rate Limits & Quotas</h2>
+        <table>
+          <thead>
+            <tr><th>Tier</th><th>Requests / Min</th><th>Max Chunk Tokens</th><th>Concurrent Streams</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Standard</td><td>60 RPM</td><td>4,096 tokens</td><td>5</td></tr>
+            <tr><td>Enterprise</td><td>600 RPM</td><td>32,768 tokens</td><td>50</td></tr>
+          </tbody>
+        </table>
+        <h2>3. Error Retry Policy</h2>
+        <p>When receiving HTTP 429, clients must implement exponential backoff starting at <code>1000ms</code>.</p>
+      `;
+    }, 300);
+  </script>
+  <footer>Copyright 2026 CloudRAG Documentation Demo</footer>
+</body>
+</html>
